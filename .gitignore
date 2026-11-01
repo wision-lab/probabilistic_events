@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Local editor and OS files
+.DS_Store
+.idea/
+.vscode/
+
+# Generated outputs and downloaded data
+outputs/
+data/*
+external/

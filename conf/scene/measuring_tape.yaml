@@ -1,0 +1,14 @@
+# Snapping measuring tape (Fig. 2).
+name: measuring_tape
+file: data/scenes/measuring_tape.npy  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/SwissSPAD_ddr3_mode.npy
+color_spad_cfa: null
+rotation: 0  # degrees, counter-clockwise
+flip_ud: false  # flip vertically (before rotation)
+initial_time_step: 6400  # binary frames into the recording
+num_time_step: -1  # -1: to the end (the paper uses 1280 frames)
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: quanta-vision/sequences/anycam_001.zip
+  member: anycam/measuring_tape_17th_Dec_2022/binary.npy

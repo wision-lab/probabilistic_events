@@ -1,0 +1,7 @@
+# The paper's "fast" variant: binomial + 5-tap gradients instead of Log-Gabor.
+defaults:
+  - default
+  - _self_
+
+model_gradient: true
+model_log_gabor: false

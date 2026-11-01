@@ -1,0 +1,14 @@
+# Rapidly spinning prize wheel (Fig. 3D, RAFT optical flow).
+name: prize_wheel
+file: data/scenes/prize_wheel.npy  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/SwissSPAD_ddr3_mode.npy
+color_spad_cfa: null
+rotation: 0  # degrees, counter-clockwise
+flip_ud: false  # flip vertically (before rotation)
+initial_time_step: 38400  # binary frames into the recording
+num_time_step: -1  # -1: to the end (the paper uses 2000 frames)
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: quanta-vision/sequences/anycam_003.zip
+  member: anycam/vertical_wheel_17th_Dec_2022/button_click/binary.npy

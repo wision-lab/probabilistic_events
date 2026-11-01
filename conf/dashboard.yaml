@@ -1,0 +1,21 @@
+# Web dashboard: uv run python -m probabilistic_events.dashboard [scene=<name>] [port=...]
+defaults:
+  - method: default
+  - scene: casino_roulette
+  - override hydra/job_logging: disabled
+  - _self_
+
+device: auto
+exposures_per_frame: 8  # virtual exposures per displayed frame
+warm_up_frames: 16  # frames replayed (not shown) before a seek target, to settle the state
+max_fps: 30  # playback cap
+jpeg_quality: 90
+host: 127.0.0.1
+port: 8000
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+  job:
+    chdir: false

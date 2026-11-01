@@ -1,0 +1,14 @@
+# Swinging spheres of a Newton's cradle (Fig. 3B, MOSSE tracking).
+name: newton_cradle
+file: data/scenes/newton_cradle.npy  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/SwissSPAD_ddr3_mode.npy
+color_spad_cfa: null
+rotation: 0  # degrees, counter-clockwise
+flip_ud: false  # flip vertically (before rotation)
+initial_time_step: 30720  # binary frames into the recording
+num_time_step: -1  # -1: to the end (the paper uses 5000 frames)
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: quanta-vision/sequences/anycam_002.zip
+  member: anycam/newton_cradle_8th_Feb_2023/take_2/binary.npy

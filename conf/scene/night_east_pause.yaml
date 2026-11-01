@@ -1,0 +1,17 @@
+# Night-time street toward the Wisconsin State Capitol, 1 MPixel UbiCam (Bayer BGGR). Try method.tonemap=srgb.
+name: night_east_pause
+file: data/scenes/night_east_pause.h5  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/ubicam_night_driving.npy
+color_spad_cfa: null
+bayer_pattern: bggr  # CFA of the raw frames (also in the file's metadata)
+rotation: 90  # degrees, counter-clockwise
+flip_ud: false  # flip vertically (before rotation)
+initial_time_step: 0  # binary frames into the recording
+num_time_step: -1  # -1: to the end
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: probabilistic-events/night-driving.tar.xz
+  member: science/east_pause.0002/data.ubi.h5
+  extra:  # other files to keep from the archive
+    science/hot_pixel/statistical_hot_and_dead_pixel_mask.npy: data/hot_pixel_mask/ubicam_night_driving.npy

@@ -1,0 +1,14 @@
+# Hand-held capitol model, colour sensor.
+name: capitol
+file: data/scenes/capitol.npy  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/colorSPAD_continuous_stream.npy
+color_spad_cfa: data/color_filter_array/rgbw_oh_bn_color_ss2_padded.tif
+rotation: 0  # degrees, counter-clockwise
+flip_ud: false  # flip vertically (before rotation)
+initial_time_step: 0  # binary frames into the recording
+num_time_step: -1  # -1: to the end (the paper uses 3000 frames)
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: quanta-vision/sequences/anycam_001.zip
+  member: anycam/capitol_24th_Feb_2023/wriggle/binary.npy

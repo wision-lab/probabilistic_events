@@ -1,0 +1,6 @@
+# Purely temporal binomial model (no spatial features); the fastest variant.
+defaults:
+  - default
+  - _self_
+
+model_log_gabor: false

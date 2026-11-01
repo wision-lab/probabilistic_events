@@ -1,0 +1,14 @@
+# Person running at ~0.05 lux (pose estimation).
+name: runner_low_light
+file: data/scenes/runner_low_light.npy  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/SwissSPAD_continuous_stream.npy
+color_spad_cfa: null
+rotation: 0  # degrees, counter-clockwise
+flip_ud: false  # flip vertically (before rotation)
+initial_time_step: 0  # binary frames into the recording
+num_time_step: -1  # -1: to the end (the paper uses 32768 frames)
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: quanta-vision/sequences/vision_007.zip
+  member: vision/0905-walk-sizhuo-l0/binary.npy

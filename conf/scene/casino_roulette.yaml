@@ -1,0 +1,14 @@
+# Spinning roulette wheel under ambient light (dashboard default).
+name: casino_roulette
+file: data/scenes/casino_roulette.npy  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/colorSPAD_continuous_stream.npy
+color_spad_cfa: data/color_filter_array/rgbw_oh_bn_color_ss2_padded.tif
+rotation: 0  # degrees, counter-clockwise
+flip_ud: true  # flip vertically (before rotation)
+initial_time_step: 0  # binary frames into the recording
+num_time_step: -1  # -1: to the end (the paper uses 4000 frames)
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: quanta-vision/sequences/anycam_001.zip
+  member: anycam/casino_roulette_10th_Feb_2023/ambient_35mm_take_1/binary.npy

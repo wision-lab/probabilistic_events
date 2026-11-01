@@ -1,0 +1,14 @@
+# Indoor tennis, colour sensor (comparison to an event camera).
+name: tennis
+file: data/scenes/tennis.npy  # relative to the repo root
+hot_pixel_mask: data/hot_pixel_mask/colorSPAD_continuous_stream.npy
+color_spad_cfa: data/color_filter_array/rgbw_oh_bn_color_ss2_padded.tif
+rotation: 180  # degrees, counter-clockwise
+flip_ud: false  # flip vertically (before rotation)
+initial_time_step: 62000  # binary frames into the recording
+num_time_step: -1  # -1: to the end (the paper uses 8000 frames)
+
+# Where scripts/download_scenes.py fetches this clip from
+source:
+  archive: quanta-vision/sequences/photoev_002.zip
+  member: photoev/tennis_100mm_27th_Sept_2023-09-27--17-39-05/binary.npy

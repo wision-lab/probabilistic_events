@@ -1,0 +1,55 @@
+[project]
+name = "probabilistic_events"
+version = "0.1.0"
+description = "Transforming photons into probabilistic event cameras"
+readme = "README.md"
+authors = [{ name = "Varun Sundar", email = "vsundar4@wisc.edu" }]
+requires-python = ">=3.10"
+dependencies = [
+    "einops",
+    "fastapi",
+    "h5py>=3.16.0",
+    "hydra-core",
+    "jaxtyping",
+    "loguru",
+    "matplotlib",
+    "numba",
+    "numpy",
+    "omegaconf",
+    "opencv-python",
+    "pyyaml",
+    "scikit-image",
+    "scipy",
+    "setuptools",  # needed by triton at runtime (torch.compile)
+    "tabulate",
+    "torch>=2.5,<2.7",
+    "torchvision>=0.20,<0.22",
+    "tqdm",
+    "uvicorn[standard]",  # includes websockets
+]
+
+[project.urls]
+Repository = "https://github.com/wision-lab/probabilistic_events"
+Paper = "https://arxiv.org/abs/2608.27584"
+
+[dependency-groups]
+dev = ["black", "httpx", "pytest"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }
+torchvision = { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["probabilistic_events*"]
+
+[tool.setuptools.package-data]
+"probabilistic_events.dashboard" = ["web/*"]

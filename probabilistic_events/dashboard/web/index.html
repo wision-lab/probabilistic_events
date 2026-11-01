@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Probabilistic Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <h2>Scene Configuration</h2>
+      <label>Scene Config <select id="scene"></select></label>
+      <p id="scene-info" class="caption"></p>
+
+      <hr />
+      <h2>Integrator Configuration</h2>
+      <label>Method <select id="variant"></select></label>
+      <p class="caption">Switching method loads its defaults; the fields below then tweak them.
+        Toggles apply at once; press Apply for typed values.</p>
+
+      <label class="switch"><input id="denoise" type="checkbox" /><span></span> Denoise (adaptive Wiener)</label>
+
+      <details open>
+        <summary>Model</summary>
+        <label>Hazard rate γ (per binary frame) <input id="bocpd_gamma" type="number" step="any" min="0" max="1" /></label>
+        <label>Memory size K <input id="memory_size" type="number" step="1" min="1" max="64" /></label>
+        <label>Sum frames N<sub>sum</sub> <input id="sum_frames" type="number" step="1" min="1" max="255" /></label>
+        <label class="check"><input id="model_binomial" type="checkbox" /> Binomial likelihood</label>
+        <label class="check"><input id="use_bayesian_predictive" type="checkbox" /> Bayesian predictive mean (instead of EMA)</label>
+      </details>
+      <details open>
+        <summary>Spatial features</summary>
+        <label>Features
+          <select id="features">
+            <option value="none">None (temporal only)</option>
+            <option value="gradient">Gradients (fast)</option>
+            <option value="log_gabor">Log-Gabor (robust)</option>
+            <option value="difference_of_gaussians">Difference of Gaussians</option>
+          </select>
+        </label>
+        <label>Scales <input id="num_scales" type="number" step="1" min="1" max="8" /></label>
+        <label>Orientations (Log-Gabor) <input id="num_orientations" type="number" step="1" min="1" max="16" /></label>
+        <label>PCA components (0: none) <input id="pca_components" type="number" step="1" min="0" max="64" /></label>
+        <label>Max-filter on sample weight <input id="max_filter_size" type="number" step="2" min="1" max="15" /></label>
+      </details>
+      <details>
+        <summary>Denoising and ISP</summary>
+        <label>Denoise window size <input id="denoise_window_size" type="number" step="2" min="1" max="31" /></label>
+        <label>Denoise noise gain <input id="denoise_noise_gain" type="number" step="0.1" min="0" /></label>
+        <label class="check"><input id="linearize_response" type="checkbox" /> Linearize SPAD response</label>
+        <label>Peak-flux quantile <input id="flux_est_quantile" type="number" step="0.01" min="0" max="1" /></label>
+        <label class="check"><input id="white_balance" type="checkbox" /> Gray-world white balance (colour)</label>
+        <label>Tonemap
+          <select id="tonemap">
+            <option value="">None</option>
+            <option value="srgb">sRGB</option>
+            <option value="ashikhmin">Ashikhmin</option>
+            <option value="reinhard_2002_global">Reinhard (global)</option>
+          </select>
+        </label>
+      </details>
+      <details>
+        <summary>Visualization</summary>
+        <label>Entropy event factor (|ΔH| &gt; log factor) <input id="entropy_event_threshold" type="number" step="0.1" min="1" /></label>
+        <label>Backend
+          <select id="backend">
+            <option value="auto">auto</option>
+            <option value="torch">torch</option>
+            <option value="triton">triton</option>
+          </select>
+        </label>
+      </details>
+      <button id="apply" type="button" class="primary">Apply</button>
+    </aside>
+
+    <main>
+      <h1>Probabilistic Events on a Photon Cube</h1>
+
+      <div id="busy" class="alert info" hidden></div>
+      <div id="error" class="alert error" hidden></div>
+
+      <h3>Live Preview</h3>
+      <div class="transport">
+        <button id="play" type="button" class="secondary" aria-label="Play">▶ Play</button>
+        <input id="seek" type="range" min="0" max="0" value="0" aria-label="Seek" />
+        <span id="position" class="caption">–</span>
+      </div>
+      <div class="progress"><div id="progress-bar"></div></div>
+      <p id="info" class="caption"></p>
+
+      <p class="label">Reconstruction</p>
+      <img id="flux" alt="Reconstruction" />
+
+      <p class="label">Sample Weight (Window Size)</p>
+      <div class="with-legend">
+        <img id="sample_weight" alt="Sample weight" />
+        <div class="legend">
+          <div id="weight-bar" class="colorbar"></div>
+          <div id="weight-ticks" class="ticks"></div>
+        </div>
+      </div>
+
+      <p class="label">Gradient Magnitude</p>
+      <img id="gradient" alt="Gradient magnitude" />
+
+      <p class="label">Entropy Events (ΔH)</p>
+      <div class="with-legend">
+        <img id="events" alt="Entropy events" />
+        <div class="legend">
+          <ul id="event-key" class="key"></ul>
+        </div>
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

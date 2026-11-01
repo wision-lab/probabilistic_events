@@ -1,0 +1,30 @@
+# ProbabilisticEvents parameters; keys map 1:1 onto ProbabilisticEvents.__init__
+# and the defaults match both the class and the paper's Methods section.
+
+# Model
+sum_frames: 31  # N_sum: binary frames summed into one (5-bit) virtual exposure
+bocpd_gamma: 1.0e-5  # BOCPD hazard rate gamma; raise (e.g. ~1e-3..8e-3) in low light
+memory_size: 5  # K: run-length hypotheses kept per pixel (top-K pruning)
+model_binomial: true  # Beta-binomial predictive on the summed counts
+use_bayesian_predictive: false  # flux = posterior mean instead of the adaptive EMA
+
+# Spatial features (at most one): gradient = fast variant, log_gabor = robust variant
+model_gradient: false
+model_log_gabor: true
+model_difference_of_gaussians: false
+num_scales: 4  # filter-bank scales (log-Gabor / DoG)
+num_orientations: 8  # log-Gabor orientations
+pca_components: 24  # PCA projection of the filter-bank responses
+max_filter_size: 1  # max-filter on the sample weight (1: off)
+
+# Output / ISP
+bayer_pattern: gray  # gray, rggb, bggr, grbg or gbrg (in output orientation); Bayer scenes set it
+entropy_event_threshold: 1.4  # event when exp(H) (run-length perplexity) changes by this factor, i.e. |dH| > log(1.4) nats
+denoise: false  # spatially-varying Wiener filter on the flux
+denoise_window_size: 7  # Wiener filter window (pixels)
+denoise_noise_gain: 0.8  # scales the estimated noise variance
+linearize_response: false  # invert the SPAD response to linear flux
+flux_est_quantile: 0.98  # peak-flux quantile used when linearizing
+white_balance: true  # gray-world WB (Bayer only)
+tonemap: ""  # "", srgb, ashikhmin or reinhard_2002_global
+backend: auto  # auto (Triton on CUDA), torch or triton

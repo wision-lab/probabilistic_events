@@ -1,0 +1,23 @@
+# Headless run: uv run python -m probabilistic_events.run scene=<name> [method.<key>=...]
+defaults:
+  - method: default
+  - scene: newton_cradle
+  - override hydra/job_logging: disabled
+  - _self_
+
+device: auto  # auto, cuda or cpu
+exposures_per_frame: 8  # virtual exposures (of method.sum_frames binary frames) per output frame
+max_frames: -1  # stop after this many output frames (-1: whole clip)
+num_workers: 4  # DataLoader workers decoding the photon cube
+
+output:
+  fps: 30  # playback rate of the written videos
+  video: true  # flux.mp4, sample_weight.mp4, events.mp4
+  frames: false  # also write every frame as PNG under frames/<stream>/
+  arrays: true  # arrays.npz: flux, sample_weight, events stacks + mean activity map
+
+hydra:
+  run:
+    dir: outputs/${scene.name}/${now:%Y-%m-%d_%H-%M-%S}
+  job:
+    chdir: false
